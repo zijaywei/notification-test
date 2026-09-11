@@ -1,0 +1,23 @@
+name: Test Mobile Notification
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  test-notification:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create assigned test issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --repo "${{ github.repository }}" \
+            --title "🔔 DSP monitor mobile notification test" \
+            --body "This issue was created automatically by GitHub Actions and assigned to @${{ github.repository_owner }}." \
+            --assignee "${{ github.repository_owner }}"
